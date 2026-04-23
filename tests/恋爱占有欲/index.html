@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>恋爱占有欲测试 - 黑猫测测</title>
+    <link rel="stylesheet" href="../../shared/css/style.css">
+    <link rel="stylesheet" href="../../shared/css/test.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 四角装饰图腾 -->
+    <div class="corner-decoration corner-tl"></div>
+    <div class="corner-decoration corner-tr"></div>
+    <div class="corner-decoration corner-bl"></div>
+    <div class="corner-decoration corner-br"></div>
+    
+    <!-- 飘落星星背景 -->
+    <div class="falling-stars" id="fallingStars"></div>
+    
+    <!-- 神秘指针 -->
+    <div class="mystical-pointer"></div>
+    
+    <!-- 能量光环 -->
+    <div class="energy-ring"></div>
+    
+    <!-- 星光粒子 -->
+    <div class="star-particles" id="starParticles"></div>
+    
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="../../index.html" class="back-link">← 返回测试列表</a>
+        
+        <!-- 封面页面 -->
+        <div class="cover-page" id="coverPage">
+            <div class="cover-content">
+                <div class="cover-avatar"></div>
+                <h1 class="cover-title">恋爱占有欲测试</h1>
+                <p class="cover-subtitle">精简30题，6大维度<br>了解你的恋爱模式</p>
+                
+                <div class="cover-stats">
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">30</span>
+                        <span class="cover-stat-label">道题目</span>
+                    </div>
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">6</span>
+                        <span class="cover-stat-label">个维度</span>
+                    </div>
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">5</span>
+                        <span class="cover-stat-label">种结果</span>
+                    </div>
+                </div>
+                
+                <button class="cover-btn" onclick="startTest()">开始测试</button>
+            </div>
+        </div>
+
+        <!-- 测试页面 -->
+        <div class="test-page" id="testPage" style="display: none;">
+            <div class="test-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="currentQuestion">1</span> / <span id="totalQuestions">30</span>
+                </div>
+            </div>
+            
+            <div class="question-container" id="questionContainer">
+                <!-- 题目将通过JS动态插入 -->
+            </div>
+        </div>
+
+        <!-- 结果页面 -->
+        <div class="result-page" id="resultPage" style="display: none;">
+            <div class="result-content">
+                <div class="result-icon" id="resultIcon">✦</div>
+                <h2 class="result-title" id="resultTitle">测试结果</h2>
+                <div class="result-score" id="resultScore">0分</div>
+                <p class="result-desc" id="resultDesc">结果描述</p>
+                
+                <div class="result-radar" id="resultRadar">
+                    <!-- 雷达图 -->
+                </div>
+                
+                <div class="result-details" id="resultDetails">
+                    <!-- 详细分析 -->
+                </div>
+                
+                <div class="result-actions">
+                    <button class="result-btn primary" onclick="restartTest()">重新测试</button>
+                    <button class="result-btn secondary" onclick="shareResult()">分享结果</button>
+                </div>
+                
+                <a href="../../index.html" class="back-home">返回首页</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/main.js"></script>
+    <script src="../../shared/js/confetti.js"></script>
+    <script src="../../shared/js/radar-chart.js"></script>
+    <script src="../../shared/js/love-possessiveness.js"></script>
+</body>
+</html>

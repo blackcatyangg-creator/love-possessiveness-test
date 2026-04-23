@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>他是回避型依恋，还是根本不喜欢你？</title>
+    <link rel="stylesheet" href="../../shared/css/style.css">
+    <link rel="stylesheet" href="../../shared/css/test.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 测试特定样式 */
+        .test-specific .cover-avatar::before {
+            content: '💙';
+        }
+    </style>
+</head>
+<body>
+    <!-- 四角装饰图腾 -->
+    <div class="corner-decoration corner-tl"></div>
+    <div class="corner-decoration corner-tr"></div>
+    <div class="corner-decoration corner-bl"></div>
+    <div class="corner-decoration corner-br"></div>
+    
+    <!-- 飘落星星背景 -->
+    <div class="falling-stars" id="fallingStars"></div>
+    
+    <!-- 神秘指针 -->
+    <div class="mystical-pointer"></div>
+    
+    <!-- 能量光环 -->
+    <div class="energy-ring"></div>
+    
+    <!-- 星光粒子 -->
+    <div class="star-particles" id="starParticles"></div>
+    
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="../../index.html" class="back-link">← 返回测试列表</a>
+        
+        <!-- 封面页面 -->
+        <div class="cover-page" id="coverPage">
+            <div class="cover-content test-specific">
+                <div class="cover-avatar"></div>
+                <h1 class="cover-title">回避型<br>VS 不喜欢</h1>
+                <p class="cover-subtitle">25道精选题目，深挖真实相处细节<br>彻底分清「想爱却不敢」和「毫无兴趣」</p>
+                
+                <div class="cover-stats">
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">25</span>
+                        <span class="cover-stat-label">道题目</span>
+                    </div>
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">4</span>
+                        <span class="cover-stat-label">个维度</span>
+                    </div>
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">3</span>
+                        <span class="cover-stat-label">种结果</span>
+                    </div>
+                </div>
+                
+                <button class="cover-btn" onclick="startTest()">开始测试</button>
+            </div>
+        </div>
+
+        <!-- 测试页面 -->
+        <div class="test-page" id="testPage" style="display: none;">
+            <div class="test-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="currentQuestion">1</span> / <span id="totalQuestions">25</span>
+                </div>
+            </div>
+            
+            <div class="question-container" id="questionContainer"></div>
+        </div>
+
+        <!-- 结果页面 -->
+        <div class="result-page" id="resultPage" style="display: none;">
+            <div class="result-content">
+                <div class="result-icon" id="resultIcon">💙</div>
+                <h2 class="result-title" id="resultTitle">测试结果</h2>
+                <div class="result-score" id="resultScore">0分</div>
+                <div class="result-level" id="resultLevel"></div>
+                <div class="result-desc" id="resultDesc"></div>
+                
+                <div class="result-details" id="resultDetails"></div>
+                
+                <div class="result-actions">
+                    <button class="result-btn primary" onclick="restartTest()">重新测试</button>
+                    <button class="result-btn secondary" onclick="shareResult()">分享结果</button>
+                </div>
+                
+                <a href="../../index.html" class="back-home">返回首页</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/main.js"></script>
+    <script>
+        // 测试数据
+        const testData = {
+            questions: [
+                { id: 1, section: "第一部分：日常主动与聊天回应", text: "除去你主动发起的聊天，他主动找你的频率和动机是？", options: [
+                    { value: 3, text: "每周多次主动开启话题，分享无关紧要的日常、看到的趣事、突然的情绪，哪怕只是简单报备行踪，也会主动联系" },
+                    { value: 2, text: "偶尔主动（一周1-2次），大多是有事找你帮忙、需要你回应，才会主动发消息，无目的分享极少" },
+                    { value: 1, text: "几乎从不主动，哪怕你断联3-5天，他也不会主动询问、找你，完全不会想起联系你" }
+                ]},
+                { id: 2, section: "第一部分：日常主动与聊天回应", text: "你发送较长的消息、分享情绪/日常，他的回复内容是？", options: [
+                    { value: 3, text: "会针对性回应你的每一个点，会追问细节、表达自己的看法，哪怕忙，事后也会逐条回复" },
+                    { value: 2, text: "只回复消息里其中一个点，其余内容忽略，回复字数较少，不会主动延伸话题" },
+                    { value: 1, text: "已读不回、隔数小时才回，或只回「嗯、哦、好、哈哈」等单字/无意义表情，完全不接你的话" }
+                ]},
+                { id: 3, section: "第一部分：日常主动与聊天回应", text: "你表达难过、委屈、焦虑等负面情绪时，他的反应是？", options: [
+                    { value: 3, text: "会停下手中事安抚你，耐心听你倾诉，哪怕不善言辞，也会默默陪伴，不会表现出不耐烦" },
+                    { value: 2, text: "简单说一句「别难过了」，之后不再回应，不知道如何安慰，选择沉默但不逃离" },
+                    { value: 1, text: "直接说「你想多了」「别矫情」「这点事没必要」，甚至直接终止聊天、失联，刻意躲开你的情绪" }
+                ]},
+                { id: 4, section: "第一部分：日常主动与聊天回应", text: "聊天中涉及暧昧、好感、思念等情感表达时，他的态度是？", options: [
+                    { value: 3, text: "会害羞、内敛，但不会回避，会用行动或简短话语回应你的心意，不抗拒亲密氛围" },
+                    { value: 2, text: "会转移话题、沉默，不正面回应，但也不会因此疏远你、冷淡你" },
+                    { value: 1, text: "立刻变得冷漠，刻意拉开距离，甚至几天不联系你，明确表现出抗拒和反感" }
+                ]},
+                { id: 5, section: "第一部分：日常主动与聊天回应", text: "他是否会无故失联、消失，且不做任何解释？", options: [
+                    { value: 3, text: "偶尔因需要独处空间短暂不回消息，但恢复后第一时间解释原因，不会无故失联超1天" },
+                    { value: 2, text: "偶尔失联1-2天，回来后不解释、不道歉，你问起才简单敷衍几句" },
+                    { value: 1, text: "频繁无故失联3天以上，回来后毫无愧疚，觉得自己没错，甚至指责你管太多" }
+                ]},
+                { id: 6, section: "第一部分：日常主动与聊天回应", text: "你主动结束聊天、说晚安时，他的反应是？", options: [
+                    { value: 3, text: "会不舍，会叮嘱你好好休息，主动说下次再聊，态度温和" },
+                    { value: 2, text: "平淡回应晚安，无多余情绪，正常结束对话" },
+                    { value: 1, text: "立刻结束聊天，毫无留恋，甚至巴不得你早点停止聊天" }
+                ]},
+                { id: 7, section: "第二部分：见面约会与现实相处", text: "你主动提出见面、约会，他的处理方式是？", options: [
+                    { value: 3, text: "积极配合你的时间，主动敲定约会细节，哪怕临时有事，也会主动提出改期方案，绝不敷衍" },
+                    { value: 2, text: "不主动拒绝，但也不积极，全程让你安排一切，态度被动，不会提出自己的想法" },
+                    { value: 1, text: "反复找借口拒绝（加班、忙、有事），或答应后临时爽约，且不补约、不道歉" }
+                ]},
+                { id: 8, section: "第二部分：见面约会与现实相处", text: "见面相处过程中，他的状态是？", options: [
+                    { value: 3, text: "愿意看着你、主动找话题、配合你的节奏，不排斥近距离接触，眼神里有在意，不会全程冷漠" },
+                    { value: 2, text: "话不多、比较安静，你找话题他会回应，不会刻意疏远，但也不会主动拉近关系" },
+                    { value: 1, text: "全程低头玩手机、频繁看时间、敷衍回应，表现出不耐烦、无聊，总想提前结束约会" }
+                ]},
+                { id: 9, section: "第二部分：见面约会与现实相处", text: "约会时，他是否愿意为你付出时间、精力、小成本物质？", options: [
+                    { value: 3, text: "愿意花时间陪你做喜欢的事，会主动记住你的小喜好，偶尔准备小惊喜，不吝啬付出" },
+                    { value: 2, text: "被动配合你的安排，不会主动付出，但也不会拒绝你的好意，平淡相处" },
+                    { value: 1, text: "全程敷衍，不愿花时间，约会全程敷衍了事，甚至觉得陪你是浪费时间" }
+                ]},
+                { id: 10, section: "第二部分：见面约会与现实相处", text: "约会结束分别时，他的表现是？", options: [
+                    { value: 3, text: "会不舍，会叮嘱你注意安全，主动提出送你回家/到车站，分别后还会发消息确认你安全" },
+                    { value: 2, text: "正常分别，简单道别，无多余情绪，分别后不会主动联系" },
+                    { value: 1, text: "迫不及待结束约会，分别时毫无留恋，甚至提前离开，分别后失联" }
+                ]},
+                { id: 11, section: "第二部分：见面约会与现实相处", text: "你试图制造肢体接触（牵手、靠近、拍肩等），他的反应是？", options: [
+                    { value: 3, text: "会害羞、紧张，但不会躲开，甚至会主动靠近你，不排斥肢体接触" },
+                    { value: 2, text: "无明显反应，既不会躲开，也不会主动回应，态度平淡" },
+                    { value: 1, text: "立刻躲开、表现出不适，甚至直接说「别这样」，明确抗拒肢体接触" }
+                ]},
+                { id: 12, section: "第二部分：见面约会与现实相处", text: "约会后，他是否会主动延续话题、复盘约会、表达开心？", options: [
+                    { value: 3, text: "会主动发消息说「今天很开心」「下次再约」，会记住约会细节，主动延续话题" },
+                    { value: 2, text: "不会主动提约会，你提起他会简单回应，态度平淡" },
+                    { value: 1, text: "约会后失联，你提起他会敷衍，甚至表现出不耐烦" }
+                ]},
+                { id: 13, section: "第三部分：情绪共鸣与关系推进", text: "你提到未来、关系定位、感情期待等话题，他的反应是？", options: [
+                    { value: 3, text: "会认真思考，哪怕不善言辞，也会用行动或简短话语回应，不会逃避" },
+                    { value: 2, text: "会沉默、转移话题，不正面回应，但也不会因此疏远你" },
+                    { value: 1, text: "立刻变得冷漠，刻意拉开距离，甚至直接说「你想多了」「我没想那么远」" }
+                ]},
+                { id: 14, section: "第三部分：情绪共鸣与关系推进", text: "你表达对他的好感、欣赏、需要，他的反应是？", options: [
+                    { value: 3, text: "会害羞、开心，哪怕不善言辞，也会用行动回应，不会抗拒你的心意" },
+                    { value: 2, text: "会沉默、不回应，但也不会因此疏远你，态度平淡" },
+                    { value: 1, text: "立刻变得冷漠，刻意拉开距离，甚至直接说「别这样」「我们不合适」" }
+                ]},
+                { id: 15, section: "第三部分：情绪共鸣与关系推进", text: "你试图推进关系（确定关系、见家长、同居等），他的反应是？", options: [
+                    { value: 3, text: "会认真考虑，哪怕暂时做不到，也会给出明确时间表，不会逃避" },
+                    { value: 2, text: "会沉默、转移话题，不正面回应，但也不会因此疏远你" },
+                    { value: 1, text: "立刻变得冷漠，刻意拉开距离，甚至直接说「你想多了」「我没想那么远」" }
+                ]},
+                { id: 16, section: "第三部分：情绪共鸣与关系推进", text: "你表达不安、怀疑、需要安全感，他的反应是？", options: [
+                    { value: 3, text: "会耐心安抚你，用行动证明，不会觉得你无理取闹，愿意给你安全感" },
+                    { value: 2, text: "会沉默、不知如何回应，但不会因此疏远你" },
+                    { value: 1, text: "立刻变得不耐烦，说你「想太多」「太粘人」，甚至直接失联" }
+                ]},
+                { id: 17, section: "第四部分：冲突处理与关系修复", text: "你们发生争吵、矛盾时，他的处理方式是？", options: [
+                    { value: 3, text: "会冷静后主动找你沟通，哪怕不善言辞，也会尝试解决问题，不会逃避" },
+                    { value: 2, text: "会沉默、冷战，但不会因此分手，需要你先主动破冰" },
+                    { value: 1, text: "立刻提分手、拉黑、消失，完全不愿意沟通，直接放弃关系" }
+                ]},
+                { id: 18, section: "第四部分：冲突处理与关系修复", text: "你主动道歉、示好、给台阶，他的反应是？", options: [
+                    { value: 3, text: "会接受，会反思自己的问题，关系恢复正常，甚至比以前更好" },
+                    { value: 2, text: "会接受，但态度平淡，不会主动示好，关系恢复但无进展" },
+                    { value: 1, text: "不接受、不回应，甚至借机提分手，完全不给机会" }
+                ]},
+                { id: 19, section: "第四部分：冲突处理与关系修复", text: "冷战、断联期间，他是否会偷偷关注你？", options: [
+                    { value: 3, text: "会偷偷看你朋友圈、微博，向共同朋友打听你，但不会主动联系" },
+                    { value: 2, text: "不会主动关注你，但你找他他会回应" },
+                    { value: 1, text: "完全不会关注你，仿佛你从未存在，彻底把你从生活中删除" }
+                ]},
+                { id: 20, section: "第四部分：冲突处理与关系修复", text: "你彻底断联、消失，他的反应是？", options: [
+                    { value: 3, text: "会焦虑、会忍不住找你，哪怕只是简单问候，也会试探你的态度" },
+                    { value: 2, text: "不会主动找你，但你找他他会回应" },
+                    { value: 1, text: "完全不会找你，甚至很快开始新生活、新恋情" }
+                ]},
+                { id: 21, section: "第四部分：冲突处理与关系修复", text: "你明确表达「我需要你」「我不想失去你」，他的反应是？", options: [
+                    { value: 3, text: "会被触动，会心软，会用行动回应你，不会完全无动于衷" },
+                    { value: 2, text: "会沉默、不知如何回应，但不会因此彻底消失" },
+                    { value: 1, text: "完全无动于衷，甚至觉得你「道德绑架」「太沉重」" }
+                ]},
+                { id: 22, section: "综合判断", text: "整体上，他在关系中的态度是？", options: [
+                    { value: 3, text: "有在意、有付出，只是表达方式内敛、被动，不会完全冷漠" },
+                    { value: 2, text: "态度平淡、不冷不热，既不会主动推进，也不会彻底放弃" },
+                    { value: 1, text: "完全不在意、不付出，随时可能消失，对你毫无留恋" }
+                ]},
+                { id: 23, section: "综合判断", text: "你感受到的爱意和在乎是？", options: [
+                    { value: 3, text: "虽然不多，但能感受到他在意，只是表达方式不同" },
+                    { value: 2, text: "偶尔能感受到，但大多数时候很模糊、不确定" },
+                    { value: 1, text: "完全感受不到，只有冷漠、敷衍、不耐烦" }
+                ]},
+                { id: 24, section: "综合判断", text: "这段关系让你感到？", options: [
+                    { value: 3, text: "虽然累，但偶尔有甜蜜，觉得他只是「不会爱」，不是「不爱」" },
+                    { value: 2, text: "平淡、不确定，不知道他到底怎么想的" },
+                    { value: 1, text: "完全被忽视、被消耗，只有痛苦，没有任何快乐" }
+                ]},
+                { id: 25, section: "综合判断", text: "如果你现在彻底离开他，他的反应最可能是？", options: [
+                    { value: 3, text: "会难过、会后悔，只是不会表达，但内心会在意" },
+                    { value: 2, text: "会平淡接受，不会有太大反应" },
+                    { value: 1, text: "完全不会在意，甚至觉得解脱" }
+                ]}
+            ]
+        };
+
+        let currentQuestionIndex = 0;
+        let answers = [];
+
+        function startTest() {
+            document.getElementById('coverPage').style.display = 'none';
+            document.getElementById('testPage').style.display = 'block';
+            document.getElementById('totalQuestions').textContent = testData.questions.length;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = testData.questions[currentQuestionIndex];
+            const progress = ((currentQuestionIndex + 1) / testData.questions.length) * 100;
+            
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            
+            let html = '';
+            if (question.section) {
+                html += `<div class="section-title">${question.section}</div>`;
+            }
+            
+            html += `<div class="question-title">${question.text}</div>`;
+            html += '<div class="options-list">';
+            
+            question.options.forEach((option, index) => {
+                html += `<button class="option-item" onclick="selectOption(${option.value})">${option.text}</button>`;
+            });
+            
+            html += '</div>';
+            document.getElementById('questionContainer').innerHTML = html;
+        }
+
+        function selectOption(value) {
+            answers.push(value);
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < testData.questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('testPage').style.display = 'none';
+            document.getElementById('resultPage').style.display = 'block';
+            
+            const totalScore = answers.reduce((a, b) => a + b, 0);
+            const maxScore = testData.questions.length * 3;
+            const percentage = Math.round((totalScore / maxScore) * 100);
+            
+            let result = {};
+            if (percentage >= 70) {
+                result = {
+                    icon: '💙',
+                    title: '他是回避型依恋',
+                    level: '他在意你，只是「不会爱」',
+                    desc: '他的冷漠、疏离、逃避，源于内心的恐惧和不安全感，而非对你的不在意。',
+                    details: [
+                        '他会主动（虽然不多），会回应（虽然简短），会在意（虽然隐藏）',
+                        '他害怕被抛弃，所以先推开你；害怕被看穿，所以保持距离',
+                        '他需要被理解、被接纳，需要一个安全的港湾',
+                        '如果你愿意给他时间和空间，他会慢慢学会爱你'
+                    ]
+                };
+            } else if (percentage >= 40) {
+                result = {
+                    icon: '💜',
+                    title: '处于模糊地带',
+                    level: '态度暧昧，难以判断',
+                    desc: '他的态度时冷时热，既有回避的特征，也有不够喜欢的表现。',
+                    details: [
+                        '他可能对你有好感，但不足以让他主动推进关系',
+                        '他可能更爱自己，把你看作「备选」而非「唯一」',
+                        '建议直接沟通，明确关系定位，不要再猜',
+                        '如果长时间没有进展，建议及时止损'
+                    ]
+                };
+            } else {
+                result = {
+                    icon: '🖤',
+                    title: '他根本不喜欢你',
+                    level: '冷漠不是回避，是不在意',
+                    desc: '他的疏离、敷衍、不主动，不是「不会爱」，而是「不想爱」。',
+                    details: [
+                        '他不会主动、不会回应、不会在意你的感受',
+                        '他对你没有占有欲、没有好奇心、没有未来规划',
+                        '他的冷漠是真实的，不是伪装',
+                        '建议及时止损，不要浪费时间和感情'
+                    ]
+                };
+            }
+            
+            document.getElementById('resultIcon').textContent = result.icon;
+            document.getElementById('resultTitle').textContent = result.title;
+            document.getElementById('resultScore').textContent = totalScore + '分';
+            document.getElementById('resultLevel').textContent = result.level;
+            document.getElementById('resultDesc').textContent = result.desc;
+            
+            let detailsHtml = '<h3>详细分析</h3><ul>';
+            result.details.forEach(detail => {
+                detailsHtml += `<li>${detail}</li>`;
+            });
+            detailsHtml += '</ul>';
+            document.getElementById('resultDetails').innerHTML = detailsHtml;
+        }
+
+        function restartTest() {
+            currentQuestionIndex = 0;
+            answers = [];
+            document.getElementById('resultPage').style.display = 'none';
+            document.getElementById('coverPage').style.display = 'flex';
+        }
+
+        function shareResult() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    text: '来看看我的测试结果吧！',
+                    url: window.location.href
+                }).catch(err => console.log('分享失败', err));
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('链接已复制到剪贴板！');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
