@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑猫测测 - 神秘塔罗测试</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 四角装饰图腾 -->
+    <div class="corner-decoration corner-tl"></div>
+    <div class="corner-decoration corner-tr"></div>
+    <div class="corner-decoration corner-bl"></div>
+    <div class="corner-decoration corner-br"></div>
+
+    <!-- 飘落星星背景 -->
+    <div class="falling-stars" id="fallingStars"></div>
+
+    <!-- 神秘指针 -->
+    <div class="mystical-pointer"></div>
+
+    <!-- 能量光环 -->
+    <div class="energy-ring"></div>
+
+    <!-- 星光粒子 -->
+    <div class="star-particles" id="starParticles"></div>
+
+    <div class="container">
+        <!-- 头部 -->
+        <header class="site-header">
+            <div class="logo">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">黑猫测测</span>
+                <span class="logo-icon">✦</span>
+            </div>
+            <p class="site-desc">揭开命运的神秘面纱</p>
+        </header>
+
+        <!-- 测试列表 -->
+        <main class="test-grid">
+            <!-- 恋爱占有欲测试 -->
+            <div class="card-wrapper" onclick="window.location.href='tests/love-possessiveness.html'">
+                <div class="card-inner">
+                    <div class="test-card">
+                        <div class="glass-shine"></div>
+                        <div class="glass-edge"></div>
+                        <div class="card-stars" data-stars="8"></div>
+                        <div class="card-totem"></div>
+                        <div class="card-top-decoration"></div>
+                        <div class="test-content">
+                            <span class="card-number">I</span>
+                            <h3 class="test-title">恋爱<br>占有欲</h3>
+                            <p class="test-desc">探索内心深处的情感掌控欲</p>
+                            <span class="test-count">30 题</span>
+                        </div>
+                        <div class="card-bottom-decoration"></div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-content">
+                            <div class="card-back-icon">🔮</div>
+                            <div class="card-back-text">点击查看<br>你的命运</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 回避型测试 -->
+            <div class="card-wrapper" onclick="window.location.href='../avoidant-test-v2.html'">
+                <div class="card-inner">
+                    <div class="test-card">
+                        <div class="glass-shine"></div>
+                        <div class="glass-edge"></div>
+                        <div class="card-stars" data-stars="6"></div>
+                        <div class="card-totem"></div>
+                        <div class="card-top-decoration"></div>
+                        <div class="test-content">
+                            <span class="card-number">II</span>
+                            <h3 class="test-title">回避型<br>VS 不喜欢</h3>
+                            <p class="test-desc">解读他的真实情感态度</p>
+                            <span class="test-count">25 题</span>
+                        </div>
+                        <div class="card-bottom-decoration"></div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-content">
+                            <div class="card-back-icon">💫</div>
+                            <div class="card-back-text">点击查看<br>你的命运</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ECR依恋模式测试 -->
+            <div class="card-wrapper" onclick="window.location.href='../ecr-attachment-test.html'">
+                <div class="card-inner">
+                    <div class="test-card">
+                        <div class="glass-shine"></div>
+                        <div class="glass-edge"></div>
+                        <div class="card-stars" data-stars="10"></div>
+                        <div class="card-totem"></div>
+                        <div class="card-top-decoration"></div>
+                        <div class="test-content">
+                            <span class="card-number">III</span>
+                            <h3 class="test-title">ECR<br>依恋模式</h3>
+                            <p class="test-desc">专业四象限深度解析</p>
+                            <span class="test-count">36 题</span>
+                        </div>
+                        <div class="card-bottom-decoration"></div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-content">
+                            <div class="card-back-icon">✨</div>
+                            <div class="card-back-text">点击查看<br>你的命运</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 付出型被爱型测试 -->
+            <div class="card-wrapper" onclick="window.location.href='tests/giving-receiving.html'">
+                <div class="card-inner">
+                    <div class="test-card">
+                        <div class="glass-shine"></div>
+                        <div class="glass-edge"></div>
+                        <div class="card-stars" data-stars="7"></div>
+                        <div class="card-totem"></div>
+                        <div class="card-top-decoration"></div>
+                        <div class="test-content">
+                            <span class="card-number">IV</span>
+                            <h3 class="test-title">付出型<br>被爱型</h3>
+                            <p class="test-desc">发现你的爱情语言模式</p>
+                            <span class="test-count">20 题</span>
+                        </div>
+                        <div class="card-bottom-decoration"></div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-content">
+                            <div class="card-back-icon">🌙</div>
+                            <div class="card-back-text">点击查看<br>你的命运</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 性压抑指数测试 -->
+            <div class="card-wrapper" onclick="window.location.href='tests/suppression-index.html'">
+                <div class="card-inner">
+                    <div class="test-card">
+                        <div class="glass-shine"></div>
+                        <div class="glass-edge"></div>
+                        <div class="card-stars" data-stars="5"></div>
+                        <div class="card-totem"></div>
+                        <div class="card-top-decoration"></div>
+                        <div class="test-content">
+                            <span class="card-number">V</span>
+                            <h3 class="test-title">性压抑<br>指数</h3>
+                            <p class="test-desc">探索潜意识的欲望边界</p>
+                            <span class="test-count">20 题</span>
+                        </div>
+                        <div class="card-bottom-decoration"></div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-content">
+                            <div class="card-back-icon">🔥</div>
+                            <div class="card-back-text">点击查看<br>你的命运</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 动物塑人格测试 -->
+            <div class="card-wrapper" onclick="window.location.href='tests/animal-personality.html'">
+                <div class="card-inner">
+                    <div class="test-card">
+                        <div class="glass-shine"></div>
+                        <div class="glass-edge"></div>
+                        <div class="card-stars" data-stars="9"></div>
+                        <div class="card-totem"></div>
+                        <div class="card-top-decoration"></div>
+                        <div class="test-content">
+                            <span class="card-number">VI</span>
+                            <h3 class="test-title">动物塑<br>人格</h3>
+                            <p class="test-desc">唤醒你内在的动物灵魂</p>
+                            <span class="test-count">18 题</span>
+                        </div>
+                        <div class="card-bottom-decoration"></div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-content">
+                            <div class="card-back-icon">🐾</div>
+                            <div class="card-back-text">点击查看<br>你的命运</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 敬请期待卡牌 -->
+            <div class="card-wrapper card-coming-soon">
+                <div class="card-inner">
+                    <div class="test-card">
+                        <div class="glass-shine"></div>
+                        <div class="glass-edge"></div>
+                        <div class="card-stars" data-stars="12"></div>
+                        <div class="card-totem"></div>
+                        <div class="card-top-decoration"></div>
+                        <div class="test-content">
+                            <span class="card-number">VII</span>
+                            <h3 class="test-title">更多测试<br>敬请期待</h3>
+                            <p class="test-desc">神秘力量正在汇聚中...</p>
+                            <span class="test-count">??? 题</span>
+                        </div>
+                        <div class="card-bottom-decoration"></div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-content">
+                            <div class="card-back-icon">🔒</div>
+                            <div class="card-back-text">命运之门<br>即将开启</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="site-footer">
+            <p>✦ 2026 黑猫测测 · 命运的指引 ✦</p>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

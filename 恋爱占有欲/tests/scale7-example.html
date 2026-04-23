@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7点量表示例 - 黑猫测测</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/test.css">
+    <style>
+        /* 测试特定样式 */
+        .test-specific .cover-avatar::before {
+            content: '💜';
+        }
+    </style>
+</head>
+<body>
+    <!-- 四角装饰图腾 -->
+    <div class="corner-decoration corner-tl"></div>
+    <div class="corner-decoration corner-tr"></div>
+    <div class="corner-decoration corner-bl"></div>
+    <div class="corner-decoration corner-br"></div>
+    
+    <!-- 飘落星星背景 -->
+    <div class="falling-stars" id="fallingStars"></div>
+    
+    <!-- 神秘指针 -->
+    <div class="mystical-pointer"></div>
+    
+    <!-- 能量光环 -->
+    <div class="energy-ring"></div>
+    
+    <!-- 星光粒子 -->
+    <div class="star-particles" id="starParticles"></div>
+    
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="../index.html" class="back-link">← 返回测试列表</a>
+        
+        <!-- 封面页面 -->
+        <div class="cover-page" id="coverPage">
+            <div class="cover-content test-specific">
+                <div class="cover-avatar"></div>
+                <h1 class="cover-title">依恋模式<br>专业测试</h1>
+                <p class="cover-subtitle">36道精选题目，深度解析你的亲密关系模式<br>发现你在爱情中的真实样貌</p>
+                
+                <div class="cover-stats">
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">36</span>
+                        <span class="cover-stat-label">道题目</span>
+                    </div>
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">2</span>
+                        <span class="cover-stat-label">个维度</span>
+                    </div>
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">4</span>
+                        <span class="cover-stat-label">种类型</span>
+                    </div>
+                </div>
+                
+                <button class="cover-btn" onclick="startTest()">开始测试</button>
+            </div>
+        </div>
+
+        <!-- 测试页面 - 使用7点量表 -->
+        <div class="test-page" id="testPage" style="display: none;">
+            <div class="test-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="currentQuestion">1</span> / <span id="totalQuestions">36</span>
+                </div>
+            </div>
+            
+            <!-- 7点量表题目容器 -->
+            <div class="question-container scale-7" id="questionContainer">
+                <!-- 选项列表 -->
+                <div class="options-list">
+                    <div class="option-item" data-option="1" onclick="selectOption(1)">非常不赞成</div>
+                    <div class="option-item" data-option="2" onclick="selectOption(2)">比较不赞成</div>
+                    <div class="option-item" data-option="3" onclick="selectOption(3)">有点不赞成</div>
+                    <div class="option-item" data-option="4" onclick="selectOption(4)">中立</div>
+                    <div class="option-item" data-option="5" onclick="selectOption(5)">有点赞成</div>
+                    <div class="option-item" data-option="6" onclick="selectOption(6)">比较赞成</div>
+                    <div class="option-item" data-option="7" onclick="selectOption(7)">非常赞成</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 结果页面 -->
+        <div class="result-page" id="resultPage" style="display: none;">
+            <div class="result-content">
+                <div class="result-icon" id="resultIcon">💜</div>
+                <h2 class="result-title" id="resultTitle">安全型依恋</h2>
+                <div class="result-level" id="resultLevel">焦虑维度: 低 | 回避维度: 低</div>
+                <p class="result-desc" id="resultDesc">
+                    你在亲密关系中表现出健康的平衡。你既能享受亲密，又保持适当的独立性。
+                    你通常感到被爱和被支持，也能够在关系中表达自己的需求。
+                </p>
+                
+                <!-- 简约四象限 - 箭头形式 -->
+                <div class="quadrant-simple">
+                    <div class="quadrant-arrows">
+                        <!-- 垂直箭头 - 焦虑维度 -->
+                        <div class="arrow-vertical">
+                            <span class="arrow-label top">高焦虑</span>
+                            <div class="arrow-line"></div>
+                            <span class="arrow-label bottom">低焦虑</span>
+                        </div>
+                        <!-- 水平箭头 - 回避维度 -->
+                        <div class="arrow-horizontal">
+                            <span class="arrow-label left">高回避</span>
+                            <div class="arrow-line"></div>
+                            <span class="arrow-label right">低回避</span>
+                        </div>
+                        <!-- 中心点 -->
+                        <div class="center-dot" id="centerDot"></div>
+                    </div>
+                    <!-- 类型标签 -->
+                    <div class="type-labels">
+                        <span class="type-top-left">恐惧型</span>
+                        <span class="type-top-right">痴迷型</span>
+                        <span class="type-bottom-left">疏离型</span>
+                        <span class="type-bottom-right">安全型</span>
+                    </div>
+                </div>
+                
+                <div class="result-details" id="resultDetails">
+                    <h3>💡 专家建议</h3>
+                    <ul class="advice-list">
+                        <li>继续保持健康的亲密关系模式</li>
+                        <li>在关系中保持开放和真诚的沟通</li>
+                        <li>支持伴侣的成长，同时关注自己的需求</li>
+                        <li>用你的爱帮助伴侣建立安全感</li>
+                    </ul>
+                </div>
+                
+                <div class="result-actions">
+                    <button class="result-btn primary" onclick="restartTest()">重新测试</button>
+                    <button class="result-btn secondary" onclick="shareResult()">分享结果</button>
+                </div>
+                
+                <a href="../index.html" class="back-home">返回首页</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // 测试数据
+        const questions = [
+            "我感到接近伴侣是很容易的",
+            "当伴侣不在身边时，我会担心他/她不再关心我",
+            "我倾向于避免与伴侣过于亲密",
+            "我发现伴侣经常想要比我更亲密",
+            "我会因为伴侣而生气",
+            "我担心被抛弃",
+            "当伴侣想要亲密时，我会感到不舒服",
+            "我依赖伴侣的程度让伴侣感到不适",
+            "我担心一个人独处",
+            "我会立刻向伴侣寻求安慰和支持",
+            "我生气时会说一些后悔的话",
+            "我很容易与伴侣产生联结",
+            "我担心如果伴侣知道我的真实想法，会不再喜欢我",
+            "我告诉伴侣的事情，不会让其他人知道",
+            "我担心被伴侣拒绝",
+            "我更喜欢不与伴侣分享内心的感受",
+            "我倾向于与伴侣保持一定距离",
+            "我经常担心失去伴侣",
+            "当我在关系中遇到问题时，我会拒绝承认",
+            "我渴望与伴侣融为一体",
+            "我害怕一旦伴侣了解真实的我，就会离开我",
+            "我不介意依赖伴侣",
+            "如果我不能让伴侣对我产生兴趣，我会感到沮丧或生气",
+            "我向伴侣表达我的感受",
+            "我常常担心伴侣不会一直在我身边",
+            "我不喜欢太依赖伴侣",
+            "如果伴侣拒绝与我讨论问题，我会感到受伤和生气",
+            "当伴侣与我意见不合时，我会感到被拒绝",
+            "我会向伴侣寻求很多保证",
+            "当伴侣情绪低落时，我会感到不舒服",
+            "我担心被伴侣伤害",
+            "我感到舒适地依赖伴侣",
+            "我担心自己不够好，配不上伴侣",
+            "我倾向于在需要时向伴侣寻求帮助",
+            "当伴侣不在身边时，我会担心他/她可能对别人产生兴趣",
+            "我发现很难完全信任伴侣"
+        ];
+
+        let currentQuestionIndex = 0;
+        let answers = [];
+
+        function startTest() {
+            document.getElementById('coverPage').style.display = 'none';
+            document.getElementById('testPage').style.display = 'block';
+            document.getElementById('totalQuestions').textContent = questions.length;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const container = document.getElementById('questionContainer');
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            
+            // 更新题目文字
+            const questionTitle = document.createElement('div');
+            questionTitle.className = 'section-title';
+            questionTitle.textContent = questions[currentQuestionIndex];
+            
+            // 保留选项列表，只更新题目
+            const optionsList = container.querySelector('.options-list');
+            
+            container.innerHTML = '';
+            container.appendChild(questionTitle);
+            container.appendChild(optionsList);
+            
+            // 重置选项状态
+            const options = optionsList.querySelectorAll('.option-item');
+            options.forEach(opt => {
+                opt.style.transform = '';
+                opt.style.opacity = '';
+            });
+        }
+
+        function selectOption(value) {
+            answers.push(value);
+            
+            // 添加选中动画
+            const options = document.querySelectorAll('.option-item');
+            options[value - 1].style.transform = 'scale(0.95)';
+            options[value - 1].style.opacity = '0.8';
+            
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion();
+                } else {
+                    showResult();
+                }
+            }, 200);
+        }
+
+        function showResult() {
+            document.getElementById('testPage').style.display = 'none';
+            document.getElementById('resultPage').style.display = 'block';
+            
+            // 计算结果（简化版）
+            const anxiety = answers.slice(0, 18).reduce((a, b) => a + b, 0) / 18;
+            const avoidance = answers.slice(18).reduce((a, b) => a + b, 0) / 18;
+            
+            // 设置中心点位置（基于焦虑和回避维度）
+            // 焦虑：高在上，低在下；回避：高在左，低在右
+            const dot = document.getElementById('centerDot');
+            const offsetX = (4 - avoidance) * 25; // 回避低→右，回避高→左
+            const offsetY = (anxiety - 4) * 25;   // 焦虑高→上，焦虑低→下
+            dot.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+            
+            // 根据结果设置类型
+            let type, title, desc;
+            if (anxiety < 4 && avoidance < 4) {
+                type = '安全型';
+                title = '安全型依恋';
+                desc = '你在亲密关系中表现出健康的平衡。你既能享受亲密，又保持适当的独立性。';
+            } else if (anxiety >= 4 && avoidance < 4) {
+                type = '痴迷型';
+                title = '痴迷型依恋';
+                desc = '你渴望亲密，但常常担心被抛弃。你倾向于寻求很多保证和关注。';
+            } else if (anxiety < 4 && avoidance >= 4) {
+                type = '疏离型';
+                title = '疏离型依恋';
+                desc = '你重视独立，对亲密感到不适。你倾向于保持距离，避免依赖他人。';
+            } else {
+                type = '恐惧型';
+                title = '恐惧型依恋';
+                desc = '你既渴望亲密又害怕受伤。这种矛盾让你感到困惑和不安。';
+            }
+            
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultDesc').textContent = desc;
+            document.getElementById('resultLevel').textContent = `焦虑: ${anxiety.toFixed(1)} | 回避: ${avoidance.toFixed(1)}`;
+        }
+
+        function restartTest() {
+            currentQuestionIndex = 0;
+            answers = [];
+            document.getElementById('resultPage').style.display = 'none';
+            document.getElementById('coverPage').style.display = 'flex';
+        }
+
+        function shareResult() {
+            alert('分享功能开发中...');
+        }
+    </script>
+</body>
+</html>

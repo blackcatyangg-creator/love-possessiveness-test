@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试标题 - 黑猫测测</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/test.css">
+</head>
+<body>
+    <div class="falling-hearts" id="fallingHearts"></div>
+    
+    <div class="container">
+        <a href="../index.html" class="back-link">← 返回测试列表</a>
+        
+        <!-- 封面页面 -->
+        <div class="cover-page" id="coverPage">
+            <div class="cover-content">
+                <div class="cover-avatar">
+                    <img src="../images/cat.png" alt="测试图片">
+                </div>
+                <h1 class="cover-title">🎯 测试标题</h1>
+                <p class="cover-subtitle">测试副标题描述</p>
+                
+                <div class="cover-stats">
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">XX</span>
+                        <span class="cover-stat-label">道题目</span>
+                    </div>
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">X</span>
+                        <span class="cover-stat-label">个维度</span>
+                    </div>
+                    <div class="cover-stat-item">
+                        <span class="cover-stat-number">X</span>
+                        <span class="cover-stat-label">种结果</span>
+                    </div>
+                </div>
+                
+                <button class="cover-btn" onclick="startTest()">开始测试</button>
+            </div>
+        </div>
+
+        <!-- 测试页面 -->
+        <div class="test-page" id="testPage" style="display: none;">
+            <div class="test-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="currentQuestion">1</span> / <span id="totalQuestions">XX</span>
+                </div>
+            </div>
+            
+            <div class="question-container" id="questionContainer"></div>
+        </div>
+
+        <!-- 结果页面 -->
+        <div class="result-page" id="resultPage" style="display: none;">
+            <div class="result-content">
+                <div class="result-icon" id="resultIcon">🎀</div>
+                <h2 class="result-title" id="resultTitle">测试结果</h2>
+                <div class="result-score" id="resultScore">0分</div>
+                <p class="result-desc" id="resultDesc">结果描述</p>
+                
+                <div class="result-details" id="resultDetails"></div>
+                
+                <div class="result-actions">
+                    <button class="result-btn primary" onclick="restartTest()">重新测试</button>
+                    <button class="result-btn secondary" onclick="shareResult()">分享结果</button>
+                </div>
+                
+                <a href="../index.html" class="back-home">返回首页</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/template.js"></script>
+</body>
+</html>
