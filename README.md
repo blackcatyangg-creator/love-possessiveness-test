@@ -1,4 +1,4 @@
-# 🐱‍👤 黑猫测测 - 神秘塔罗心理测试
+#黑猫测测 - 神秘塔罗心理测试
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://blackcatyangg-creator.github.io/love-possessiveness-test/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
